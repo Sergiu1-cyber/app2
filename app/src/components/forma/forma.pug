@@ -1,0 +1,36 @@
+.w3-container.w3-padding-24
+  p.w3-text-red {{ mesaj }}
+    
+  .w3-container.w3-cell(v-for="a in Persoana" :key="a.id")
+    label.V1(:for="a.tipul") {{ a.img }}
+      input(type="radio" :id="a.tipul" :value="a.value" v-model="pers")
+      
+  br
+  span Выбрано: {{ pers }}
+  br
+  br
+    
+  .w3-container.w3-cell(v-for="b in Operatia" :key="b.id")
+    label.V1(:for="b.tipul") {{ b.img }}
+    input(type="radio" :id="b.tipul" :value="b.value" v-model="oper")
+    
+  br
+  span Выбрано: {{ oper }}
+  br
+  br
+
+  .w3-container.w3-cell(v-for="c in Categoriile" :key="c.id")
+    label.V1(:for="c.tipul") {{ c.img }}
+    input(type="radio" :id="c.tipul" :value="c.value" v-model="categ")
+    
+  br
+  span Выбрано: {{ categ }}
+  br
+  br
+
+  label(for="suma") Suma:
+  br
+  input#suma(type="number" v-model="sum")
+  br
+  br
+  button(@click="Exp") Expediez

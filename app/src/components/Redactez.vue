@@ -1,0 +1,66 @@
+<template lang="pug">
+include forma/forma.pug  
+</template>
+
+<script>
+  import axios from 'axios'
+  import { mapActions } from 'vuex'
+  import { Persoana, Operatia, Categoriile } from '@/components/forma/forma.js'
+  
+  export default {
+    props: ['id'],
+    data() {
+      return {
+        Persoana,
+        Operatia,
+        Categoriile,
+        pers: '',
+        oper: '',
+        sum: '',
+        categ: '',
+        mesaj: ''
+      }
+    },
+    computed: {
+      dates() {
+        return "id=" + this.id + "&" + "sql=" + JSON.stringify({ persoana:this.pers, operatia:this.oper, suma:this.sum, categoria:this.categ })
+      }
+    },
+    methods: {
+      ...mapActions(['citescData']),
+      Exp() {
+        axios.post('http://localhost:3000/dataBaza/redactez', this.dates )
+        .then(response => {
+          this.mesaj = response.data
+          this.citescData()
+          this.$router.push('/about')
+        })
+        .catch(err => {
+          this.mesaj = err
+        })
+      },
+      Elemenul() {
+        let a = "id=" + this.id
+        axios.post('http://localhost:3000/dataBaza/id', a)
+        .then(response => {
+          this.pers = response.data[0].persoana,
+          this.oper = response.data[0].operatia,
+          this.sum = response.data[0].suma,
+          this.categ = response.data[0]. categoria
+        })
+        .catch(err => {
+          this.mesaj = err
+        })
+      }
+    },
+    mounted() {
+      this.Elemenul()
+    }
+  }
+</script>
+
+<style scoped>
+  .V1 {
+    font-size: 200%;
+  }
+</style>
