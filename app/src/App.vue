@@ -13,8 +13,7 @@
     },
     data() {
       return {
-        close: false,
-        a: "a"
+        close: false
       }
     },
     methods: {
